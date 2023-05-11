@@ -1,6 +1,9 @@
 package org.example.service;
 
+
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.example.dao.TaskDAO;
 import org.example.domain.Task;
 import org.example.dto.TaskDTO;
@@ -28,17 +31,19 @@ public class TaskService {
                 .build();
 
         taskDAO.save(task);
-        log.info("new task saved, ID= : " + task.getId());
+        log.info("new task saved, ID= : {}", task.getId());
 
         return task;
     }
 
     public Page<Task> getTasks(String page, String size) {
+        log.info("getting tasks page: {}, size: {}", page, size);
         return taskDAO.findAll(PageRequest.of(parser(page), parser(size)));
     }
 
     public long getPagesCount(String size) {
         long taskCount = taskDAO.count();
+        log.info("count all tasks: {}", taskCount);
         return taskCount / parser(size);
     }
 

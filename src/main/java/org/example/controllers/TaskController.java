@@ -37,14 +37,14 @@ public class TaskController {
     }
 
     @GetMapping("/newTask")
-    public String createTask (){
+    public String createTask() {
         return "createTask";
     }
 
     @PostMapping("/createTask")
     public String createTask(TaskDTO taskDTO) {
 
-        log.info("description for task: " + taskDTO.getDescription());
+        log.info("description for task: {}", taskDTO.getDescription());
         taskService.createNewTask(taskDTO);
 
         return "redirect:tasks";
