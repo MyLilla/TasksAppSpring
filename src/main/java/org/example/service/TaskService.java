@@ -47,10 +47,14 @@ public class TaskService {
         return taskCount / parser(size);
     }
 
+    public void delete(String id){
+        Task task =  taskDAO.findById(Long.parseLong(id)).get();
+        taskDAO.delete(task);
+    }
+
     public Task changeTask(Task task) {
 
         taskDAO.save(task);
-
         return taskDAO.findById(task.getId()).get();
     }
 
@@ -61,4 +65,5 @@ public class TaskService {
             throw new ParsingException("Argument: " + str + "is not number" + exception.getMessage());
         }
     }
+
 }

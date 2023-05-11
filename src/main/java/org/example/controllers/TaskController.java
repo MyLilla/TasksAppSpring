@@ -18,7 +18,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/")
-    public String hello(Model model) {
+    public String hello() {
 
         return "redirect:tasks";
     }
@@ -46,6 +46,16 @@ public class TaskController {
 
         log.info("description for task: {}", taskDTO.getDescription());
         taskService.createNewTask(taskDTO);
+
+        return "redirect:tasks";
+    }
+
+    @GetMapping("/deleteTask")
+    public String delete (Model model,
+                          @RequestParam() String id){
+
+        log.info("delete task, id: {}", id);
+        taskService.delete(id);
 
         return "redirect:tasks";
     }

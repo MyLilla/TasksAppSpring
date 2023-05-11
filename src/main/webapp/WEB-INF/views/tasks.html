@@ -33,6 +33,9 @@
         <div class="col">
             STATUS
         </div>
+        <div class="col">
+
+        </div>
     </div>
     <br><br>
 
@@ -46,6 +49,11 @@
                 </div>
                 <div class="col">
                     <p th:utext="${task.status}"/>
+                </div>
+                <div class="col">
+                    <a th:href="@{/deleteTask(id=${task.id})}">
+                        <button type="button" class="btn btn-primary" th:text="delete"></button>
+                    </a>
                 </div>
             </div>
         </th:block>
