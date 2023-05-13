@@ -61,7 +61,7 @@
     <br><br>
 
     <label for="countTasks">Cont tasks on the page:</label>
-    <select id="countTasks" name="countTasks">
+    <select id="countTasks" name="countTasks" onload="countTasks()">
         <option selected="selected" value="5">5</option>
         <option value="10">10</option>
         <option value="0">ALL</option>
@@ -92,7 +92,9 @@
 </div>
 
 <script>
-    const pages = document.getElementById('countTasks');
+    function countTasks() {
+        const pages = document.getElementById('countTasks');
+    }
 </script>
 
 </body>
