@@ -4,9 +4,6 @@ package org.example.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.TaskMapper;
-import org.mapstruct.factory.Mappers;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.example.dao.TaskDAO;
 import org.example.domain.Task;
 import org.example.dto.TaskDTO;
@@ -24,14 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskService {
 
     private final TaskDAO taskDAO;
+    private TaskMapper taskMapper;
 
-//    private TaskMapper taskMapper;
-//
-//    @Autowired
-//    public TaskService(TaskDAO taskDAO, TaskMapper taskMapper) {
-//        this.taskDAO = taskDAO;
-//        this.taskMapper = taskMapper;
-//    }
+    @Autowired
+    public TaskService(TaskDAO taskDAO, TaskMapper taskMapper) {
+        this.taskDAO = taskDAO;
+        this.taskMapper = taskMapper;
+    }
 
     @Transactional
     public Task createNewTask(TaskDTO taskDTO) {
@@ -40,12 +36,7 @@ public class TaskService {
             log.debug("TaskDto for creating is null");
             throw new ParsingException("TaskDto for creating is null");
         }
-        Task task = Task.builder()
-                .description(taskDTO.getDescription())
-                .status(taskDTO.getStatus())
-                .build();
-
-        // Task task1 = taskMapper.mapToEntity(taskDTO);
+        Task task = taskMapper.mapToEntity(taskDTO);
         taskDAO.save(task);
         log.info("new task saved, ID= : {}", task.getId());
 
@@ -84,5 +75,4 @@ public class TaskService {
             throw new ParsingException("Argument: " + str + "is not number" + exception.getMessage());
         }
     }
-
 }
